@@ -1,0 +1,99 @@
+﻿@model Tuple<IEnumerable<BinarySearchPrRun>, IEnumerable<BinarySearchPoint>>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Binary Search</h1>
+
+<form asp-action="CreateBisectForm">
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label name="lastBadCommit" class="control-label">Last Bad Commit:</label>
+            <input name="lastBadCommit" class="form-control" value="@Model.Item2.First().lastBadCommit" />
+        </div>
+        <div class="form-group col-md-6">
+            <label name="lastGoodCommit" class="control-label">Last Good Commit:</label>
+            <input name="lastGoodCommit" class="form-control" value="@Model.Item2.First().lastGoodCommit" />
+        </div>
+    </div>
+    <div class="form-group col-md-5">
+        <label name="Name" class="control-label offset-md-2">PR Name:</label>
+        <div class="row">
+            <label class="mt-1 text-secondary">Upgrade-</label>
+            <input name="Name" class="form-control col-md-7" />
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Bisect Now" class="btn btn-primary" Checked="checked" />
+    </div>
+</form>
+
+@if (@Model.Item1.Any() && Model.Item1.Last().RunStatus == 0)
+{
+    <div style="background-color: #fddada; padding: 10px; position: relative;">
+        <h4>Commit Status</h4>
+        <form asp-action="ChangeCommitStatus" method="post" id="commitForm">
+            <div class="form-group">
+                <label for="commitStatus">Was the last commit successful?</label>
+                <br>
+                <input type="hidden" name="commitStatus" id="commitStatus" value="">
+                <input type="button" class="btn btn-success" value="Success" onclick="setCommitStatus('success')">
+                <input type="button" class="btn btn-danger" value="Failure" onclick="setCommitStatus('failure')">
+            </div>
+        </form>
+        <span style="position: absolute; top: -18px; left: -13px; font-size: 24px;">&#9888;</span>
+    </div>
+
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                GitHash
+            </th>
+            <th>
+                Link
+            </th>
+            <th>
+                RunStatus
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Item1)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GitHash)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Link)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RunStatus)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function setCommitStatus(status) {
+        document.getElementById("commitStatus").value = status; // Set the commit status value
+        document.getElementById("commitForm").submit(); // Submit the form
+    }
+</script>

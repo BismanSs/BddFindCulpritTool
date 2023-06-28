@@ -1,0 +1,108 @@
+﻿<h4>Create A Custom PR</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="ProcessThenCreate">
+            <div class="row">
+                <div class="form-group col-md-5">
+                    <label name="Name" class="control-label offset-md-3">PR Name:</label>
+                    <div class="row">
+                        <label class="mt-1 text-secondary">Upgrade-</label>
+                        <input name="Name" class="form-control col-md-7" />
+                    </div>
+                </div>
+                <div class="form-group col-md-7">
+                    <label name="GitHash" class="control-label">Git Hash:</label>
+                    <input name="GitHash" class="form-control" />
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label class="h5 mb-3">
+                        Select BDDs
+                    </label>
+                    <div class="form-group">
+                        <label>AllPlatforms</label>
+                        <input type="checkbox" name="AllPlatforms" value="true" Checked="checked" />
+                    </div>
+                    <div class="form-group">
+                        <label>Android</label>
+                        <input type="checkbox" name="Android" value="true" Checked="checked" />
+                    </div>
+                    <div class="form-group">
+                        <label>Apple</label>
+                        <input type="checkbox" name="Apple" value="true" Checked="checked" />
+                    </div>
+                    <div class="form-group">
+                        <label>GlobalSettings</label>
+                        <input type="checkbox" name="GlobalSettings" value="true" Checked="checked" />
+                    </div>
+                    <div class="form-group">
+                        <label>IOS</label>
+                        <input type="checkbox" name="IOS" value="true" Checked="checked" />
+                    </div>
+                    <div class="form-group">
+                        <label>Linux</label>
+                        <input type="checkbox" name="Linux" value="true" Checked="checked" />
+                    </div>
+                    <div class="form-group">
+                        <label>Mac</label>
+                        <input type="checkbox" name="Mac" value="true" Checked="checked" />
+                    </div>
+                    <div class="form-group">
+                        <label>SotiHub</label>
+                        <input type="checkbox" name="SotiHub" value="true" Checked="checked" />
+                    </div>
+                    <div class="form-group">
+                        <label>WindowsClassicDesktop</label>
+                        <input type="checkbox" name="WindowsClassicDesktop" value="true" Checked="checked" />
+                    </div>
+                    <div class="form-group">
+                        <label>WindowsModern</label>
+                        <input type="checkbox" name="WindowsModern" value="true" Checked="checked" />
+                    </div>
+                    <div class="form-group">
+                        <label>WMCE</label>
+                        <input type="checkbox" name="WMCE" value="true" Checked="checked" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="h5 mb-3">
+                        Select Stages
+                    </label>
+                    <div class="form-group">
+                        <label>Acceptance-Security</label>
+                        <input type="checkbox" name="AccSecurity" value="true" Checked="checked" />
+                    </div>
+                    <div class="form-group">
+                        <label>Acceptance-General</label>
+                        <input type="checkbox" name="AccGeneral" value="true" Checked="checked" />
+                    </div>
+                    <div class="form-group">
+                        <label>Upgrade-v14</label>
+                        <input type="checkbox" name="UpgradeV14" value="true" Checked="checked" />
+                    </div>
+                    <div class="form-group">
+                        <label>Upgrade-v15.5</label>
+                        <input type="checkbox" name="UpgradeV155" value="true" Checked="checked" />
+                    </div>
+                    <div class="form-group">
+                        <label>Upgrade-v15.6</label>
+                        <input type="checkbox" name="UpgradeV156" value="true" Checked="checked" />
+                    </div>
+                    <div class="form-group">
+                        <label>Upgrade-CurrentBuild</label>
+                        <input type="checkbox" name="UpgradeCurrent" value="true" Checked="checked" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" Checked="checked"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
