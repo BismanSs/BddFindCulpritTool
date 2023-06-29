@@ -163,7 +163,8 @@ namespace BddFindCulpritTool.Controllers
                 JenkinsStageRemove(backendPath, _stagesBlackList);
             }
 
-            if (ShellProcessing(@"CreatePR.ps1", args).Item2 != "")
+            var prOutput = ShellProcessing(@"CreatePR.ps1", args);
+            if (prOutput.Item2 != "")
             {
                 ShowpopUpError();
             }
@@ -171,6 +172,7 @@ namespace BddFindCulpritTool.Controllers
             newPr.Name = name;
             newPr.GitHash = gitHash;
             newPr.RunStatus = 0;
+            newPr.Link = prOutput.Item1.Last();
             return Create(newPr);
         }
 

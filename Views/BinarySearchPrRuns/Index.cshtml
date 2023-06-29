@@ -1,5 +1,5 @@
 ﻿@model Tuple<IEnumerable<BinarySearchPrRun>, IEnumerable<BinarySearchPoint>>
-
+@using BddFindCulpritTool.Controllers.HelperClasses
 @{
     ViewData["Title"] = "Index";
 }
@@ -66,7 +66,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Item1)
+        @foreach (var item in Model.Item1.Reverse())
         {
             <tr>
                 <td>
@@ -76,10 +76,13 @@
                     @Html.DisplayFor(modelItem => item.GitHash)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Link)
+                    <a href="@item.Link" target="_blank">
+                        <i class="fa fa-external-link"></i>
+                    </a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.RunStatus)
+                    <div class="text-hide">{@Enum.TryParse(item.RunStatus.ToString(),out RunStatusEnum value);}</div>
+                    @value
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -97,3 +100,5 @@
         document.getElementById("commitForm").submit(); // Submit the form
     }
 </script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
