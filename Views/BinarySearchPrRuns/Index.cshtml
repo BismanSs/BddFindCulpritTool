@@ -29,6 +29,11 @@
     </div>
 </form>
 
+@if(TempData["culpritFound"] != null)
+{
+    <div class="text-danger mb-2">Culprit found: @TempData["culpritFound"].ToString()</div>
+}
+
 @if (@Model.Item1.Any() && Model.Item1.Last().RunStatus == 0)
 {
     <div style="background-color: #fddada; padding: 10px; position: relative;">

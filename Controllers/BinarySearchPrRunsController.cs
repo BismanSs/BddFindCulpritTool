@@ -9,6 +9,7 @@ using BddFindCulpritTool.Data;
 using BddFindCulpritTool.Models;
 using static BddFindCulpritTool.Controllers.HelperClasses.GitAndStageProcessing;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace BddFindCulpritTool.Controllers
 {
@@ -59,6 +60,17 @@ namespace BddFindCulpritTool.Controllers
             string backendPath = _context.Configuration.First().BackendPath;
             string[] args = { backendPath, name, lastBadCommit, lastGoodCommit };
             var output = ShellProcessing(@"Bisect.ps1", args);
+            for(int i =0; i< 6; i++)
+            {
+                Regex reg = new Regex("(.*)is the first bad commit");
+                Match match = reg.Match(output.Item1[i]);
+                if (match.Success)
+                {
+                    TempData["culpritFound"] = output.Item1[i];
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            TempData["culpritFound"] = null;
             /*if (output.Item2 != "")
             {
                 ShowpopUpError();
